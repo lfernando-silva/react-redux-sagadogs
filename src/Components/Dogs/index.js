@@ -4,28 +4,24 @@ import "../../App.css";
 
 import { connect } from "react-redux";
 
+const style = { marginRight: '2%', marginLeft: '2%', marginTop: '1%', marginBottom: '1%' }
+
 class Dogs extends Component {
+  componentDidMount(){
+    this.props.onRequestDog()
+  }
+
   render() {
-    const { fetching, dog, onRequestDog, error } = this.props;
+    const { dog, error } = this.props;
    
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={dog || logo} className="App-logo" alt="logo" />
+      <div style={style}>
+          <img src={dog || logo} height="200" width="300" alt="logo" />
           <h1 className="App-title">Welcome to Dog Saga</h1>
-        </header>
 
-        {dog ? (
-          <p className="App-intro">Keep clicking for new dogs</p>
-        ) : (
-          <p className="App-intro">Replace the React icon with a dog!</p>
-        )}
-
-        {fetching ? (
-          <button disabled>Fetching...</button>
-        ) : (
-          <button onClick={onRequestDog}>Request a Dog</button>
-        )}
+          <button className='btn btn-primary' onClick={() => this.props.history.push('/breeds')}>
+          See more dogs
+          </button>
 
         {error && <p style={{ color: "red" }}>Uh oh - something went wrong!</p>}
 
